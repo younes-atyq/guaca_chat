@@ -1,0 +1,35 @@
+@use "../abstracts" as *;
+
+#nav {
+  // sass vars didn't work
+  --active: #84abb0;
+  --inactive: #77969b;
+  position: absolute;
+  right: -1px;
+  transform: translateY(calc(-100% - 10px));
+  @media (max-width: 567px) {
+    right: 50%;
+    transform: translate(50%, calc(-100% - 10px));
+  }
+  ul {
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    gap: 2px;
+    width: max-content;
+    border: 2px solid $green-cyan;
+    border-bottom: 0;
+    background-color: $green-cyan;
+    li .link {
+      font-size: 16px;
+      padding: 6px 14px 4px;
+      color: $black;
+      background-color: var(--inactive);
+      &.active {
+        position: relative;
+        z-index: 10;
+        background-color: var(--active);
+      }
+    }
+  }
+}

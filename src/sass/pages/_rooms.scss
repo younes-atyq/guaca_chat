@@ -1,0 +1,195 @@
+@use "../abstracts" as *;
+
+#rooms {
+  @include page-content(null, $green-cyan, 893px);
+  display: grid;
+  grid-template-columns: 1fr 251px;
+  grid-template-rows: 55px 1fr;
+  justify-content: end;
+  gap: 10px;
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr 190px;
+  }
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr 1px;
+  }
+  #nav {
+    --active: $green-cyan;
+    // --inactive: #b6dcb7;
+    position: absolute;
+    transform: translateY(calc(-100%));
+    .active {
+      color: white;
+    }
+    @media (max-width: 567px) {
+      right: 50%;
+      transform: translate(50%, calc(-100%));
+    }
+  }
+  .menu-btn {
+    display: none;
+    z-index: 3;
+    position: absolute;
+    top: 30%;
+    right: -1px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    background-color: $black;
+    border: none;
+    // padding: 3px;
+    width: 22px;
+    height: 125px;
+    color: $white;
+    font-weight: bold;
+    cursor: pointer;
+    &.active {
+      right: 244px;
+      width: 16px;
+    }
+
+    @include mq("md") {
+      display: block;
+    }
+  }
+  #search,
+  #user-information,
+  #results {
+    background-color: $silver-chalice;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  #results {
+    padding: 10px;
+    grid-area: 2/1/2/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    .add-room,
+    .room {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: $white;
+      width: 100%;
+      font-family: $secondary-font-stack;
+      font-size: 25px;
+    }
+    .room {
+      padding: 10px 20px;
+      cursor: pointer;
+      @include on-event {
+        background-color: $green-cyan;
+      }
+    }
+    .add-room {
+      padding: 10px 20px 10px 10px;
+      #add-room-input {
+        padding-inline: 10px;
+      }
+      button {
+        display: block;
+        width: 70px;
+        height: 100%;
+        font-size: 25px;
+        cursor: pointer;
+        writing-mode: horizontal-tb;
+        &:hover {
+          filter: invert(1);
+        }
+      }
+    }
+  }
+  #search {
+    grid-area: 1 / 1 / 2 / 2;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    form {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      #search-input {
+        width: 350px;
+        height: 36px;
+        display: block;
+        padding: 0px 10px;
+        font-size: 18px;
+        @include on-event {
+          outline: none;
+        }
+        @media (max-width: 567px) {
+          width: 250px;
+        }
+        @media (max-width: 370px) {
+          width: 100%;
+        }
+      }
+      button {
+        background-color: $white;
+        border: none;
+        display: block;
+        cursor: pointer;
+        width: 36px;
+        height: 36px;
+        @include on-event {
+          filter: invert(1);
+        }
+      }
+    }
+  }
+  #user-information {
+    padding: 10px;
+    grid-area: 1 / 2 / 3 / 3;
+    @media (max-width: 767px) {
+      z-index: 2;
+      position: absolute;
+      display: none;
+      width: 250px;
+      right: 0;
+      height: 100%;
+      border-left: 15px solid $green-cyan;
+      &.active {
+        display: flex;
+      }
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    #username {
+      font-family: $secondary-font-stack;
+      text-decoration: underline;
+      font-size: 25px;
+      letter-spacing: 1.5px;
+      margin-bottom: 30px;
+      padding: 0;
+    }
+    #logout {
+      font-family: $secondary-font-stack;
+      font-size: 22px;
+      padding: 5px 10px;
+      background-color: $fuchsia-rose;
+      color: $white;
+      cursor: pointer;
+      opacity: 0.95;
+      @include on-event {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@keyframes disappear {
+  0%,
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

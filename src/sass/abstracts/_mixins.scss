@@ -1,0 +1,210 @@
+@use "./variables" as *;
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @param {Bool} $self [false] - Whether or not to include current selector
+/// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-within {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-within {
+      @content;
+    }
+  }
+}
+
+/// Make a context based selector a little more friendly
+/// @author Kitty Giraudel
+/// @param {String} $context
+@mixin when-inside($context) {
+  #{$context} & {
+    @content;
+  }
+}
+
+// Page content
+@mixin page-content($bg-path, $bg-color, $text-width) {
+  // check if the %bg-path is equal to null
+  @if $bg-path != null {
+    background-image: url($bg-path);
+  }
+  background-size: cover;
+  background-position: center center;
+  background-color: $bg-color;
+  border: 1px solid $green-cyan;
+  height: 800px;
+  position: relative;
+  margin-bottom: 13px;
+  width: 100%;
+  padding: 10px;
+  @media (max-width: 1200px) {
+    background-image: none;
+  }
+  @media (max-width: 567px) {
+    height: 780px;
+  }
+  @media (max-width: 400px) {
+    height: 600px;
+  }
+  .text {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 100%;
+    max-width: $text-width;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-inline: 15px;
+    h1 {
+      font-family: $main-font-stack;
+      max-width: 470px;
+      font-size: 50px;
+    }
+    p {
+      font-weight: 700;
+      font-size: 23px;
+      line-height: 1.2;
+    }
+    @media (max-width: 1200px) {
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      h1,
+      p {
+        text-align: center;
+        margin-inline: auto;
+      }
+    }
+    @media (max-width: 991px) {
+      h1 {
+        font-size: 40px;
+      }
+      p {
+        font-size: 20px;
+      }
+    }
+    @media (max-width: 767px) {
+      gap: 0px;
+      h1 {
+        font-size: 35px;
+      }
+      p {
+        font-size: 18px;
+      }
+      h1,
+      p {
+        max-width: 400px;
+      }
+    }
+  }
+}
+
+// auth pages
+@mixin auth-pages() {
+  @include page-content(null, $cadet-blue, 537px);
+  font-size: 15px;
+  @include mq("md") {
+    font-size: 13px;
+  }
+  @include mq(400px) {
+    font-size: 11px;
+  }
+  .title {
+    font-family: $main-font-stack;
+    font-size: 2.67em;
+    text-align: center;
+    margin-block: 1.5em 1.7em;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 2.2em;
+    width: fit-content;
+    margin-inline: auto;
+    justify-content: stretch;
+    padding-inline: 15px; // font-size: 15px;
+    label {
+      font-family: $secondary-font-stack;
+      font-size: 2em;
+      display: flex;
+      align-items: end;
+      gap: 0.75em;
+      width: 100%;
+      span {
+        border-bottom: 2px solid black;
+      }
+      input {
+        background-color: transparent;
+        border: none;
+        flex: 1;
+        border-bottom: 2px solid black;
+        @include on-event() {
+          outline: none;
+          background-color: transparent;
+          border-color: white;
+        }
+      }
+    }
+    input[type="submit"] {
+      background-color: transparent;
+      font-family: $secondary-font-stack;
+      font-size: 1.75em;
+      color: white;
+      background-color: #0f1111;
+      border: none;
+      padding: 5px 10px;
+      align-self: center;
+      margin-top: 24px;
+      cursor: pointer;
+      @include on-event() {
+        background-color: black;
+      }
+    }
+  }
+  .auth-info {
+    text-align: center;
+    font-size: 1.4em;
+    margin-top: 2em;
+    .auth-link {
+      font-weight: bold;
+      color: $black;
+      text-decoration: none;
+      @include on-event() {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// handle media query
+$screens: (
+  "sm": 576px,
+  "md": 768px,
+  "l": 992px,
+  "xl": 1200px,
+);
+
+@mixin mq($screen) {
+  @if (map-has-key($screens, $screen)) {
+    @media (max-width: map-get($screens, $screen)) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $screen) {
+      @content;
+    }
+  }
+}

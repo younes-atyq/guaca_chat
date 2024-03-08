@@ -1,0 +1,348 @@
+@use "../abstracts" as *;
+
+#chat {
+  @include page-content(null, $green-cyan, 893px);
+  display: grid;
+  grid-template-columns: 1fr 251px;
+  grid-template-rows: 1fr 175px;
+  justify-content: end;
+  gap: 10px;
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr 190px;
+  }
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr 1px;
+    grid-template-rows: 1fr auto;
+  }
+  #nav {
+    --active: $green-cyan;
+    // --inactive: #b6dcb7;
+    position: absolute;
+    transform: translateY(calc(-100%));
+    .active {
+      color: $white;
+    }
+    @media (max-width: 567px) {
+      right: 50%;
+      transform: translate(50%, calc(-100%));
+    }
+  }
+  .menu-btn {
+    display: none;
+    z-index: 3;
+    position: absolute;
+    top: 30%;
+    right: -1px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    background-color: $black;
+    border: none;
+    // padding: 3px;
+    width: 22px;
+    height: 125px;
+    color: $white;
+    font-weight: bold;
+    cursor: pointer;
+    &.active {
+      right: 244px;
+      width: 16px;
+    }
+    @include mq("md") {
+      display: block;
+    }
+  }
+  #messages,
+  #room-info,
+  #input-field {
+    background-color: $silver-chalice;
+    // justify-content: center;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+  }
+  #input-field {
+    align-items: end;
+    display: flex;
+    grid-area: 2/1/2/2;
+    padding-bottom: 20px;
+    @include mq("sm") {
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-inline: auto;
+      gap: 10px;
+    }
+    .editor-wrapper {
+      flex: 1;
+      @include mq("sm") {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .toolbar {
+        background-color: transparent;
+        border: none;
+        @include mq("sm") {
+          display: flex;
+          justify-content: center;
+        }
+      }
+      .editor {
+        background-color: white;
+        border: 1px solid black;
+        overflow: auto;
+        max-height: 110px;
+        padding: 0 15px;
+        width: 100%;
+        max-width: 700px;
+        @include mq("xl") {
+          max-width: 500px;
+        }
+        @include mq("l") {
+          max-width: 350px;
+        }
+        @include mq("sm") {
+          max-width: 300px;
+          padding: 5px;
+          height: 55px;
+          * {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+      .rdw-option-wrapper.rdw-option-disabled:nth-last-of-type(1),
+      .rdw-option-wrapper.rdw-option-disabled:nth-last-of-type(2) {
+        display: none;
+        padding: 10px;
+      }
+      .rdw-option-wrapper {
+        background-color: $green-cyan;
+      }
+      .rdw-option-active {
+        background-color: $white;
+        img {
+          filter: invert(0);
+        }
+      }
+      .rdw-dropdown-selectedtext {
+        background-color: $green-cyan;
+        color: $white;
+        .rdw-dropdown-carettoopen {
+          border-top-color: $white;
+        }
+        .rdw-dropdown-carettoclose {
+          border-bottom-color: $white;
+        }
+      }
+      img {
+        width: 15px;
+        filter: invert(1);
+      }
+      // link modal
+      // .rdw-link-modal {
+      //   bottom: 35px;
+      //   background-color: $green-cyan;
+      //   color: $white;
+      //   font-family: $body-font-stack;
+      //   input[type="checkbox"] {
+      //     accent-color: $green-cyan;
+      //     aspect-ratio: 1/1;
+      //   }
+      // }
+    }
+    #send {
+      padding: 0;
+      cursor: pointer;
+      font-family: $secondary-font-stack;
+      font-size: 22px;
+      // background-color: transparent;
+      padding: 10px 15px;
+      width: 110px;
+      height: 70px;
+      background-color: $green-cyan;
+      color: $white;
+      opacity: 0.95;
+      @include on-event {
+        opacity: 1;
+      }
+      @include mq("sm") {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    #info-msg {
+      position: absolute;
+      display: block;
+      margin-left: 20px;
+      animation: disappear 2s forwards;
+    }
+  }
+  #messages {
+    overflow: auto;
+    grid-area: 1 / 1 / 2 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 30px;
+    .message {
+      display: flex;
+      align-items: start;
+      p {
+        word-break: break-all;
+      }
+      h1 {
+        font-size: 27px;
+        line-height: normal;
+        margin: 0;
+      }
+      .name {
+        margin-right: 15px;
+        font-family: $secondary-font-stack;
+        position: relative;
+        text-wrap: nowrap;
+        font-size: 1.17em;
+        margin-bottom: 0.5em;
+        font-weight: bold;
+        &.admin {
+          color: $green-cyan;
+          text-decoration: underline;
+        }
+        @media (max-width: 567px) {
+          font-size: 20px;
+        }
+        &::before {
+          content: ":";
+          position: absolute;
+          right: -10px;
+        }
+        .time {
+          font-size: 18px;
+          position: absolute;
+          bottom: -15px;
+          left: 0;
+          @media (max-width: 567px) {
+            font-size: 18px;
+          }
+        }
+      }
+      .text-msg {
+        color: $deep-purple;
+        line-height: 1.2;
+        max-width: 700px;
+        ul,
+        ol {
+          margin-left: 20px;
+        }
+        ul {
+          list-style-type: disc;
+        }
+        @include mq("xl") {
+          max-width: 500px;
+        }
+        @include mq("l") {
+          max-width: 350px;
+        }
+        @include mq("sm") {
+          max-width: 300px;
+          font-size: 16px;
+        }
+        p {
+          color: $deep-purple;
+          line-height: 1.2;
+          width: 100%;
+          max-width: 700px;
+          text-wrap: wrap;
+          word-wrap: break-word;
+          margin-block: 5px;
+          @include mq("xl") {
+            max-width: 500px;
+          }
+          @include mq("l") {
+            max-width: 350px;
+          }
+          @include mq("sm") {
+            max-width: 300px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+  #room-info {
+    grid-area: 1 / 2 / 3 / 3;
+    @media (max-width: 767px) {
+      z-index: 2;
+      position: absolute;
+      display: none;
+      width: 250px;
+      right: 0;
+      height: 100%;
+      border-left: 15px solid $green-cyan;
+      &.active {
+        display: flex;
+      }
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    * {
+      font-family: $secondary-font-stack;
+    }
+    #room-name {
+      text-decoration: underline;
+      margin: 0;
+      padding: 0;
+      align-self: center;
+    }
+    .btn {
+      &#delete-room {
+        display: block;
+        margin-top: 20px;
+        background-color: $fuchsia-rose;
+      }
+      &#go-back {
+        background-color: $green-cyan;
+      }
+      font-size: 22px;
+      padding: 5px 10px;
+      color: $white;
+      cursor: pointer;
+      margin-bottom: 20px;
+      border: 1px solid black;
+      opacity: 0.95;
+      @include on-event {
+        opacity: 1;
+      }
+    }
+    #online-users {
+      align-self: flex-start;
+      margin-block: 30px;
+      flex: 1;
+      ul {
+        margin-top: 10px;
+        margin-left: 50px;
+        list-style-type: square;
+        // change list style color
+
+        li {
+          font-family: $body-font-stack;
+        }
+      }
+    }
+  }
+}
+
+@keyframes disappear {
+  0%,
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

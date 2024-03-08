@@ -1,0 +1,91 @@
+// @use "../abstracts" as *;
+
+// .RichEditor-root {
+//   font-family: $body-font-stack;
+//   font-size: 14px;
+//   max-width: 550px;
+//   flex: 1;
+//   background-color: transparent;
+//   border: 1px solid $black;
+//   height: 100%;
+// }
+
+// .RichEditor-editor {
+//   padding: 15px;
+//   border-top: 1px solid $black;
+//   cursor: text;
+//   font-size: 16px;
+//   margin-top: 10px;
+// }
+
+// .RichEditor-editor .public-DraftEditorPlaceholder-root,
+// .RichEditor-editor .public-DraftEditor-content {
+//   margin: 0 -15px -15px;
+//   padding: 10px;
+//   overflow: auto;
+//   max-height: 50px;
+//   color: $black;
+// }
+
+// .RichEditor-editor .public-DraftEditor-content {
+//   min-height: 100px;
+// }
+
+// .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+//   display: none;
+// }
+
+// .RichEditor-editor .RichEditor-blockquote {
+//   border-left: 5px solid $black;
+//   color: $black;
+//   font-family: "Hoefler Text", "Georgia", serif;
+//   font-style: italic;
+//   margin: 16px 0;
+//   padding: 10px 20px;
+// }
+
+// .RichEditor-editor .public-DraftStyleDefault-pre {
+//   font-family: $body-font-stack;
+//   font-size: 16px;
+//   padding: 20px;
+// }
+
+// .RichEditor-controls {
+//   font-family: $secondary-font-stack;
+//   padding-left: 15px;
+//   font-size: 20px;
+//   margin-bottom: 5px;
+//   margin-right: 5px;
+//   user-select: none;
+//   display: inline-flex;
+//   gap: 20px;
+//   justify-content: center;
+//   display: inline-flex;
+//   @media (max-width: 767px) {
+//     padding-left: 5px;
+//     gap: 5px;
+//   }
+//   &:nth-of-type(2) {
+//     span:first-of-type {
+//       font-weight: bold;
+//     }
+//     span:nth-of-type(2) {
+//       font-style: italic;
+//     }
+//     span:nth-of-type(3) {
+//       text-decoration: underline;
+//     }
+//   }
+// }
+
+// .RichEditor-styleButton {
+//   color: $black;
+//   cursor: pointer;
+//   margin-right: 16px;
+//   padding: 2px 0;
+//   display: inline-block;
+// }
+
+// .RichEditor-activeButton {
+//   color: $green-cyan;
+// }
